@@ -1,5 +1,4 @@
 import { database } from "./db.js";
-
 import { apikey } from "./api.js";
 
 export class StoreSetup {
@@ -15,6 +14,12 @@ export class StoreSetup {
           this.set(key, val);
         }
       }
+      const movieComment = await db.get("movie-comments", "tt0071282");
+      if (movieComment) {
+        for (const [key, val] of Object.entries(movieComment)) {
+          this.set(key, val);
+        }
+      }
     });
 
     this.state = new Proxy(init, {
@@ -22,14 +27,8 @@ export class StoreSetup {
         state[key] = value;
 
         if (self.db) {
-          await self.db.put(
-            "movie-info",
-            {
-              search: state.search,
-              comment: state.comment,
-            },
-            apikey
-          );
+          await self.db.put("movie-info", state.comment, apikey);
+          await self.db.put("movie-comments", state.comment, "tt0071282");
         }
 
         self.subscribers.forEach((subscriber) => subscriber(state));

@@ -1,6 +1,6 @@
 import { store } from "./store.js";
 
-class Movies extends HTMLElement {
+export class Movies extends HTMLElement {
   constructor() {
     super();
   }

@@ -13,21 +13,39 @@ export async function search(param, results) {
   store.postSearch(url.url);
 
   store.subscribe((state) => {
-    console.log(state.search);
+    // console.log(state.comment);
   });
 
+  // console.log(search);
+
   for (let i = 0; i < search.length; i++) {
-    const titles = search[i].Title;
-    const years = search[i].Year;
-    const posters = search[i].Poster;
-    const comments = await store.db.get("movie-info", apikey);
+    const movie = document.createElement("reusable-movies");
+
+    const comments = await store.db.get("movie-comments", "tt0071282");
+
     console.log(comments);
 
-    const movie = document.createElement("reusable-movies");
-    movie.setAttribute("name", titles);
-    movie.setAttribute("year", years);
-    movie.setAttribute("poster", posters);
-    movie.setAttribute("comment", comments.comment);
+    let moiveObj = {
+      Title: search[i].Title,
+      Year: search[i].Year,
+      Poster: search[i].Poster,
+      ID: search[i].imdbID,
+      Comment: comments,
+    };
+
+    console.log(moiveObj.Comment);
+
+    movie.setAttribute("name", moiveObj.Title);
+    movie.setAttribute("year", moiveObj.Year);
+    movie.setAttribute("poster", moiveObj.Poster);
+    movie.setAttribute("comment", comments);
+
+    await store.db.put("movie-info", moiveObj, moiveObj.ID);
+    await store.db.put("movie-comments", moiveObj.Comment, moiveObj.ID);
+
+    // console.log(moiveObj);
+
+    // console.log(movie);
 
     results.append(movie);
   }

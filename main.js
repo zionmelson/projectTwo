@@ -13,7 +13,7 @@ document.querySelector("#app").innerHTML = `
         <form>
           <label for="name">Name: </label>
           <input type="text" id="name" name="name" placeholder="Name of film" />
-          <button type="submit" value="submit">Search</button>
+          <button type="submit" value="submit" id="search-button">Search</button>
         </form>
       </div>
       <div id="results">
@@ -22,35 +22,44 @@ document.querySelector("#app").innerHTML = `
 
     <template id="template">
       <style>
-        h1 {
-          color: blue;
-        }
         #main-content {
           position: relative
           text-align: center;
           align-items: center;
           display: flex;
           flex-direction: column;
-          background-color: grey;
-          width: 45vw;
-          height: 32rem;
-          margin: 2rem;
+          background-color: rgba(255, 205, 200, .5);
+          border-color: rgba(255, 15, 90, 1);
+          border-style: solid;
+          border-width: thick;
+          width: 1fr;
+          height: 35rem;
+          margin: 1rem;
+          padding: 1rem;
+          font-weight: bold;
+          border-radius: 50px;
         }
         #movie-poster {
-          width: 7rem;
+          width: 10rem;
+          padding-bottom: 10px;
         }
         #comments-area {
           margin: 5px;
         }
         .post-and-like {
-          background-color: #001100;
-          color: #fffff1;
+          background: white;
           font-weight: bold;
           width: 4rem;
           height: 2rem;
           margin: 5px;
-          border-radius: 10%;
+          border-radius: 10px;
         }
+
+        .post-and-like:hover {
+          background-color: rgba(255, 15, 90, 1); /* Green */
+          color: white;
+        }
+
       </style>
       <div id="main-content">
         <h1 id="movie-title">Hello</h1>
